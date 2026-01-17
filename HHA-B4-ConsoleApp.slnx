@@ -1,4 +1,4 @@
 <Solution>
-  <Project Path="../ConsoleApp1/ConsoleApp1.csproj" />
+  <Project Path="../Console-App-Database/ConsoleAppDatabase.csproj" Id="ed3fd784-caa0-4009-bd0f-a2269ee8ce77" />
   <Project Path="HHA-B4-ConsoleApp.csproj" />
 </Solution>

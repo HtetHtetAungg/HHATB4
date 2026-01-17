@@ -38,25 +38,25 @@ internal class Dapper
 
       string query = @"INSERT INTO [dbo].[Tbl_Medicine] 
                         ([Name], [Price], [Stock], [Category], [CreatedDate], [IsActive])
-                        VALUES (@Name, @Price, @Stock, @Category, @CreatedDate, @IsActive)";
+                        VALUES (@Name, @Price, @Stock, @Category, GETDATE(), @IsActive)";
 
        int rows = _db.Execute(query, med);
         Console.WriteLine(rows > 0 ? "Successfully added!" : "Failed to add.");
     }
     public void Update(ProductDto med)
     {
-        string sql = @"
+        string query = @"
     UPDATE Tbl_Medicine
     SET Name = @Name,
         Price = @Price,
         Stock = @Stock,
         Category = @Category,
-        ModifiedBy = GETDATE()
+        ModifiedBy = @ModifiedBy
     WHERE MedicineId = @MedicineId";
 
-        _db.Execute(sql, med);
+        int row = _db.Execute(query, med);
+        Console.WriteLine(row > 0 ? "Successfully updated!" : "Failed to update.");
     }
-
     public void Edit(int id){
 
         string query = "Select * from Tbl_Medicine Where MedicineId = @Id";
@@ -70,7 +70,6 @@ internal class Dapper
         Console.WriteLine("Category: " + item.Category);
         Console.WriteLine("...................");
     }
-
     public void Delete(int id) {
         string query = "UPDATE Tbl_Medicine SET IsActive = 0 WHERE MedicineId = @Id";
         int rows = _db.Execute(query, new { Id = id });
